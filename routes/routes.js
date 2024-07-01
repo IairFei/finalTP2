@@ -1,15 +1,15 @@
 import { Router } from "express";
-import PalabrasController from "../controllers/PalabrasController.js";
-import { notNullDataValidate } from "../midlewares/notNullDataValidate.js";
-
+import SondaController from "../controllers/SondaController.js";
+import { notIdValid, notValidSonda } from "../Middleware/notValidSonda.middleware.js";
 
 const routes = Router();
 
-const palabrasController = new PalabrasController();
+const sondaController = new SondaController();
 
-routes.post("/",notNullDataValidate, palabrasController.createPalabra);
-routes.get("/", palabrasController.getPalabras);
-routes.delete("/:palabra", palabrasController.deletePalabra);
-routes.get("/:cantidad", palabrasController.getCatidadPalabras);
+routes.post("/", notValidSonda, sondaController.createSonda);
+
+routes.get("/", sondaController.getSondas);
+
+routes.get("/:id", notIdValid, sondaController.getSondaById);
 
 export default routes;
